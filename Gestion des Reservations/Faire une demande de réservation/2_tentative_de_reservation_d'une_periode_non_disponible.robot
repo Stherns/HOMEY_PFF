@@ -112,31 +112,11 @@ ${BOUTON CONFIRMER MARQUE PAYE}    xpath=//button[contains(.,'Confirmer')]
 ${ONGLET VOYAGES}   xpath=//a[@href='http://livraison3.testacademy.fr/index.php/reservations/']
 
 
-
-
 ${DATE DEBUT VIDE}    
 ${DATE FIN VIDE}
 
 
-
-
-
-
-
-
-
-
-
-
-
 ${date_debut4}    2025-04-27
-
-
-
-
-
-
-
 
 
 
@@ -174,20 +154,20 @@ Demande de réservation avec des données valides
     # 10. Vérifier que la réservation n'est pas enregistrée
 
 
-2. Tentative de réservation d'une période non disponible
-    1. Ouvrir le site web de réservation
-    2. Se connecter avec un compte utilisateur valide
-    3. Accéder à la section de réservation.
-    # 3. Sélectionner une période déjà réservée dans le calendrier
-    # 4. Saisir une date de début déjà réservée dans le calendrier.
-    # 5. Saisir une date de fin déjà réservée dans le calendrier.
-    6. Saisir un nombre de voyageurs valide.
-    4. Saisir une date de début valide.
-    5. Saisir une date de fin valide.
-    # 7. Ajouter un message à l’attention de l’hôte.
-    8. Valider la demande de réservation.
-    # 9. Vérifier qu’un message d'erreur s'affiche
-    # 10. Vérifier que la réservation n'est pas enregistrée
+# 2. Tentative de réservation d'une période non disponible
+#     1. Ouvrir le site web de réservation
+#     2. Se connecter avec un compte utilisateur valide
+#     3. Accéder à la section de réservation.
+#     ## 3. Sélectionner une période déjà réservée dans le calendrier
+#     ## 4. Saisir une date de début déjà réservée dans le calendrier.
+#     ## 5. Saisir une date de fin déjà réservée dans le calendrier.
+#     6. Saisir un nombre de voyageurs valide.
+#     4. Saisir une date de début valide.
+#     5. Saisir une date de fin valide.
+#     ## 7. Ajouter un message à l’attention de l’hôte.
+#     8. Valider la demande de réservation.
+#     ## 9. Vérifier qu’un message d'erreur s'affiche
+#     ## 10. Vérifier que la réservation n'est pas enregistrée
 
 
 # Reinitialiser le Test
