@@ -20,9 +20,9 @@ ${TITRE TABLEAU DE BORD}    Tableau de bord - Livraison 3
 # ${TITRE ACCEUIL}    Accueil - Livraison 3
 ${LIEN LOGO}    xpath=//a[contains(text(),'Accueil')]
 ${CHAMP DATE DEBUT}    name=arrive
-${DATE DEBUT}    2025-06-18
+${DATE DEBUT}    2025-04-27
 ${CHAMP DATE FIN}    name=depart
-${DATE FIN}    
+${DATE FIN}    2025-04-30
 ${CHAMP NOMBRE VOYAGEURS}    xpath=//div[3]/input
 ${NOMBRE VOYAGEURS}   
 ${VOYAGEUR ADULTES}    css=.banner-caption .search_adult_plus > .fa
@@ -49,22 +49,52 @@ ${ONGLET RESERVATIONS}    xpath=//a[@href='http://livraison3.testacademy.fr/inde
 ${BOUTON DETAILS}    xpath=//a[contains(text(),'Détails')]
 ${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
 ${REASON}    id=reason
-${raison}    Bonjour, je ne suis plus intéressé par le logement.
+${raison}    Je ne suis plus intéressé par le logement.
 ${BOUTON SOUMETTRE RAISON}    id=cancelled
-${AFFICHAGE MESSAGE ERREUR}    xpath=//div[@id='homey_remove_on_mobile']/div/div[2]/div/div
+${HOTE VALIDE}    MOUSSAVOU
+${HOTE MOT DE PASSE VALIDE}    stherns
+${BOUTON CONFIRMER DETAILS}    xpath=//a[contains(text(),'Confirmer')]
+${BOUTON CONFIRMER}    css=.confirm-offsite-reservation:nth-child(2)
+# ${BOUTON REFUSER}    css=.dashboard-sidebar > #decline-reservation-btn
+${RAISON REFUS}    id=reason22 
+${raison refus2}    Bonjour, je ne suis plus intéressé par le logement.
+# ${BOUTON SOUMETTRE RAISON REFUS}   id=decline 
+# ${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
+# ${RAISON}    id=reason
+${raison3}    Bonjour, desole le logement est en travaux.
+# ${BOUTON SOUMETTRE RAISON}    id=cancelled
+${BOUTON SUPPRIMER}    css=.reservation-delete
+${BOUTON TRASH}    xpath=//button[contains(.,'Supprimer')]
+${BOUTON PAYER MAINTENANT}    xpath=//a[contains(text(),'Payez maintenant')]
+# ${BOUTON ANNULE DETAILS}    xpath=//a[contains(text(),'Détails')]
+${BOUTON MARQUE PAYE}    css=.mark-as-paid > .fa
+${BOUTON CONFIRMER MARQUE PAYE}    xpath=//button[contains(.,'Confirmer')]
+${ONGLET VOYAGES}   xpath=//a[@href='http://livraison3.testacademy.fr/index.php/reservations/']
 
 *** Test Cases ***
 
-Champ date de fin vide
+Demande de réservation avec des données valides
     1. Ouvrir le site web de réservation
     2. Se connecter avec un compte utilisateur valide
     3. Accéder à la section de réservation
     4. Saisir une date de début valide
-    5. Laisser le champ "Date de fin" vide
+    5. Saisir une date de fin valide
     6. Saisir un nombre de voyageurs valide
     7. Ajouter un message à l’attention de l’hôte
-    8. Valider la demande de réservation
-    9. Vérifier que la réservation n'est pas enregistrée
+    8. Confirmer la demande de réservation
+    9. Vérifier que la réservation est bien enregistrée
+    # 10. Vérifier que l'hôte reçoit une notification de demande de réservation
+    # 11. Vérifier que le voyageur reçoit une confirmation de sa demande
+    Close Browser
+
+# Reinitialiser le Test
+
+Reinitialiser et Supprimer la réservation valide en cours
+    1. Ouvrir le site web de réservation
+    2. Se connecter avec un compte hote valide
+    3. Accéder à l'onglet "Réservation"
+    4. Sélectionner une demande en statut "NOUVEAU"
+    5. Supprimer la réservation valide en cours
     Close Browser
 
 *** Keywords ***
@@ -107,23 +137,24 @@ Vérifiez Que Le Tableau De Bord Est Visible
 
 3. Accéder à la section de réservation
     Accéder A La Page De Reservation
-
+    
 Accéder A La Page De Reservation
     Click Element    ${LIEN LOGO}
-    Wait Until Element Is Visible    ${CHAMP DATE DEBUT}
-
-4. Saisir une date de début valide
+    Wait Until Element Is Visible    ${CHAMP DATE DEBUT}    
+    
+4. Saisir une date de début valide    
     Entrer La Date de Debut    ${DATE DEBUT}
+    Entrer La Date de Fin    ${DATE FIN}
 
 Entrer La Date de Debut
     [Arguments]    ${date_debut}
     Click Element     ${CHAMP DATE DEBUT}
     Input Text    ${CHAMP DATE DEBUT}    ${date_debut}
 
-5. Laisser le champ "Date de fin" vide
-    Ne Pas Entrer La Date de Fin    ${DATE FIN}
+5. Saisir une date de fin valide
+    Entrer La Date de Fin    ${DATE FIN}
 
-Ne Pas Entrer La Date de Fin
+Entrer La Date de Fin
     [Arguments]    ${date_fin}
     Click Element     ${CHAMP DATE FIN}
     Input Text    ${CHAMP DATE FIN}    ${date_fin}
@@ -137,12 +168,13 @@ Entrer Le Nombre de Voyageurs
     Click Element     ${CHAMP NOMBRE VOYAGEURS}
     Input Text    ${CHAMP NOMBRE VOYAGEURS}    ${nombre_voyageurs}
     Double Click Element    ${VOYAGEUR ADULTES}
-    # Click Element    ${VOYAGEURS ENFANTS}
+    Click Element    ${VOYAGEURS ENFANTS}
     Click Element    ${ANIMAUX DOMESTIQUES}
     
 Cliquer Sur Le Bouton De Validation
     Click Element    ${BOUTON VALIDER VOYAGEURS}
     Click Button    ${BOUTON CHERCHER}
+    Wait Until Element Is Visible    ${CHOIX CHAMBRE}
 
 7. Ajouter un message à l’attention de l’hôte
     Choix De La Chambre
@@ -155,9 +187,7 @@ Cliquer Sur Le Bouton De Validation
     Fermer la fenêtre de message
     
 Choix De La Chambre
-    Wait Until Element Is Visible    ${CHOIX CHAMBRE}
     Click Element    ${CHOIX CHAMBRE}
-    Wait Until Element Is Visible    ${CLIC DANS LE VIDE}
 
 Contactez L'Hote
     Click Element    ${CONTACTEZ L'HOTE}
@@ -189,32 +219,82 @@ Soumettre Le Formulaire De Message
 Fermer la fenêtre de message
     Click Element    ${ONGLET FERMER}
 
-8. Valider la demande de réservation
+8. Confirmer la demande de réservation
     Cliquer Sur Le Bouton De Demande De Reservation
-    Vérifier Que L'Espace Pour Afficher Les Erreurs Est Visible
 
 Cliquer Sur Le Bouton De Demande De Reservation
     Click Element    ${CLIC DANS LE VIDE}
     Click Button    ${BOUTON RESERVATION}
     Click Element    ${CLIC DANS LE VIDE}
 
-Vérifier Que L'Espace Pour Afficher Les Erreurs Est Visible
-    Element Should Be Visible    ${AFFICHAGE MESSAGE ERREUR}
-
-9. Vérifier que la réservation n'est pas enregistrée
+9. Vérifier que la réservation est bien enregistrée
     Accéder A La Section Des Reservations
-    Effectuer Une Déconnexion Réussie
-    Vérifier Que Le Lien De Connexion Est Visible
-    Close Browser
-
+    
 Accéder A La Section Des Reservations
     Click Element    ${ICON UTILISATEUR}
     Wait Until Element Is Visible    ${ONGLET RESERVATIONS}
     Click Element    ${ONGLET RESERVATIONS}
 
-Effectuer Une Déconnexion Réussie
-    Click Element    ${LIEN SE DECONNECTER}
+# 10. Vérifier que l'hôte reçoit une notification de demande de réservation
+#     Vérifier Que L'Hote Recoit Une Notification De Demande De Reservation
 
-Vérifier Que Le Lien De Connexion Est Visible
-    Wait Until Element Is Not Visible    ${LIEN SE DECONNECTER}
-    Element Should Be Visible    ${LIEN SE CONNECTER}
+# 11. Vérifier que le voyageur reçoit une confirmation de sa demande
+#     Vérifier Que Le Voyageur Recoit Une Confirmation De Sa Demande
+
+
+# Reinitialiser le Test
+
+2. Se connecter avec un compte hote valide
+    Accéder A La Page De Connexion.
+    Entrer Le Nom d'Utilisateur.    ${HOTE VALIDE}
+    Entrer Le Mot De Passe.    ${HOTE MOT DE PASSE VALIDE}
+    Soumettre Le Formulaire De Connexion.
+    Vérifiez Que Le Tableau De Bord Est Visible.
+
+Accéder A La Page De Connexion.
+    Click Element    ${LIEN SE CONNECTER}
+    Wait Until Element Is Visible    ${CHAMP NOM UTILISATEUR}
+
+Entrer Le Nom d'Utilisateur.
+    [Arguments]    ${nom_utilisateur}
+    Click Element     ${CHAMP NOM UTILISATEUR}
+    Input Text    ${CHAMP NOM UTILISATEUR}    ${nom_utilisateur}
+
+Entrer Le Mot De Passe.
+    [Arguments]    ${mot_de_passe}
+    Click Element     ${CHAMP MOT DE PASSE}
+    Input Text    ${CHAMP MOT DE PASSE}    ${mot_de_passe}
+
+Soumettre Le Formulaire De Connexion.
+   Click Button    ${BOUTON VALIDER}
+
+Vérifiez Que Le Tableau De Bord Est Visible.
+    Wait Until Element Is Not Visible   ${CHAMP NOM UTILISATEUR}
+    Title Should Be    ${TITRE TABLEAU DE BORD}
+
+3. Accéder à l'onglet "Réservation"
+    Accéder A La Rubrique "Reservations"
+    
+Accéder A La Rubrique "Reservations"
+    Click Element    ${ICON UTILISATEUR}
+    Wait Until Element Is Visible    ${ONGLET RESERVATIONS}
+    Click Element    ${ONGLET RESERVATIONS}
+
+4. Sélectionner une demande en statut "NOUVEAU"
+    Cliquer Sur Le Premier Bouton Details
+
+Cliquer Sur Le Premier Bouton Details
+    Wait Until Element Is Visible    ${BOUTON CONFIRMER DETAILS}
+    Click Element    ${BOUTON CONFIRMER DETAILS}
+
+5. Supprimer la réservation valide en cours
+    Cliquer Sur Le Bouton Supprimer
+    Mettre Dans La Corbeille La Reservation Valide
+
+Cliquer Sur Le Bouton Supprimer
+    Wait Until Element Is Visible   ${BOUTON SUPPRIMER} 
+    Click Element    ${BOUTON SUPPRIMER}
+
+Mettre Dans La Corbeille La Reservation Valide
+    Wait Until Element Is Visible    ${BOUTON TRASH}
+    Click Element    ${BOUTON TRASH}

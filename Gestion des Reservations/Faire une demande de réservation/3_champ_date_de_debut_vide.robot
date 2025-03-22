@@ -1,12 +1,7 @@
 *** Settings ***
 Library    SeleniumLibrary
-# Resource    commun.resource
-# Suite Setup    MOTCLE1    (Executer avant le premier cas de test la suite de test)
-# Suite Teardown    MOTCLE2    (Executer apres le dernier cas de test de la suite de test)
 
 *** Variables ***
-
-# --- EFFECTUER UNE CONNEXION REUSSIE ---
 
 ${SERVEUR}    livraison3.testacademy.fr
 ${HOMEY URL}    http://${SERVEUR}/
@@ -23,9 +18,6 @@ ${BOUTON VALIDER}    css=.homey_login_button
 ${TITRE TABLEAU DE BORD}    Tableau de bord - Livraison 3
 # ${ESPACE POUR AFFICHER LES ERREURS}    css=#modal-login .error
 # ${TITRE ACCEUIL}    Accueil - Livraison 3
-
-# --- RESERVATION D'UN LOGEMENT ---
-
 ${LIEN LOGO}    xpath=//a[contains(text(),'Accueil')]
 ${CHAMP DATE DEBUT}    name=arrive
 ${DATE DEBUT}    
@@ -55,16 +47,10 @@ ${CLIC DANS LE VIDE}    css=.main-content-area
 ${ICON UTILISATEUR}    css=.account-loggedin
 ${ONGLET RESERVATIONS}    xpath=//a[@href='http://livraison3.testacademy.fr/index.php/reservations/']
 ${BOUTON DETAILS}    xpath=//a[contains(text(),'Détails')]
-
-# --- ANNULATION DE RESERVATION ---
-
 ${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
 ${REASON}    id=reason
 ${raison}    Bonjour, je ne suis plus intéressé par le logement.
 ${BOUTON SOUMETTRE RAISON}    id=cancelled
-
-# --- VERIFICATION DE LA RESERVATION ---
-
 ${AFFICHAGE MESSAGE ERREUR}    xpath=//div[@id='homey_remove_on_mobile']/div/div[2]/div/div
 
 *** Test Cases ***
@@ -87,7 +73,7 @@ Champ date de début vide
     Ouvrir Le Navigateur Et Accéder A La Page d'Accueil
 
 Ouvrir Le Navigateur Et Accéder A La Page d'Accueil
-    Open Browser    browser=${navigateur}   # executable_path=${CHROMEDRIVER_PATH}
+    Open Browser    browser=${navigateur}
     Go To    ${HOMEY URL}
     Maximize Browser Window
 
@@ -204,14 +190,8 @@ Fermer la fenêtre de message
     Click Element    ${ONGLET FERMER}
 
 8. Valider la demande de réservation
-    # Choix de la Chambre
     Cliquer Sur Le Bouton De Demande De Reservation
     Vérifier Que L'Espace Pour Afficher Les Erreurs Est Visible
-
-# Choix de la Chambre
-#     Wait Until Element Is Visible    ${CHOIX CHAMBRE}
-#     Click Element    ${CHOIX CHAMBRE}
-#     Wait Until Element Is Visible    ${CLIC DANS LE VIDE}
 
 Cliquer Sur Le Bouton De Demande De Reservation
     Click Element    ${CLIC DANS LE VIDE}
@@ -223,8 +203,6 @@ Vérifier Que L'Espace Pour Afficher Les Erreurs Est Visible
 
 9. Vérifier que la réservation n'est pas enregistrée
     Accéder A La Section Des Reservations
-    
-    
     Effectuer Une Déconnexion Réussie
     Vérifier Que Le Lien De Connexion Est Visible
     Close Browser

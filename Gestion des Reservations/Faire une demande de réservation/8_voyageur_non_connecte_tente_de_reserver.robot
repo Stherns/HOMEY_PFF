@@ -1,8 +1,5 @@
 *** Settings ***
 Library    SeleniumLibrary
-# Resource    commun.resource
-# Suite Setup    MOTCLE1    (Executer avant le premier cas de test la suite de test)
-# Suite Teardown    MOTCLE2    (Executer apres le dernier cas de test de la suite de test)
 
 *** Variables ***
 
@@ -21,7 +18,6 @@ ${BOUTON VALIDER}    css=.homey_login_button
 ${TITRE TABLEAU DE BORD}    Tableau de bord - Livraison 3
 ${ESPACE POUR AFFICHER LES ERREURS}    css=#modal-login .error
 ${TITRE ACCEUIL}    Accueil - Livraison 3
-
 ${LIEN LOGO}    xpath=//a[contains(text(),'Accueil')]
 ${CHAMP DATE DEBUT}    name=arrive
 ${DATE DEBUT}    2025-04-21
@@ -55,9 +51,7 @@ ${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
 ${REASON}    id=reason
 ${raison}    Je ne suis plus intéressé par le logement.
 ${BOUTON SOUMETTRE RAISON}    id=cancelled
-
 ${ONGLET FERMER CONNEXION}    css=#modal-login span
-
 ${MESSAGE D'ERREUR}    css=.notify
 
 *** Test Cases ***

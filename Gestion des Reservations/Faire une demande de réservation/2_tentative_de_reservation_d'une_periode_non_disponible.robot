@@ -6,8 +6,6 @@ Library    SeleniumLibrary
 
 *** Variables ***
 
-# --- EFFECTUER UNE CONNEXION REUSSIE ---
-
 ${SERVEUR}    livraison3.testacademy.fr
 ${HOMEY URL}    http://${SERVEUR}/
 ${NAVIGATEUR}    Chrome
@@ -23,11 +21,7 @@ ${BOUTON VALIDER}    css=.homey_login_button
 ${TITRE TABLEAU DE BORD}    Tableau de bord - Livraison 3
 # ${ESPACE POUR AFFICHER LES ERREURS}    css=#modal-login .error
 # ${TITRE ACCEUIL}    Accueil - Livraison 3
-
-# --- RESERVATION D'UN LOGEMENT ---
-
 ${LIEN LOGO}    xpath=//a[contains(text(),'Accueil')]
-
 ${CHAMP DATE DEBUT}    name=arrive
 ${DATE DEBUT}    2025-04-27
 ${CHAMP DATE FIN}    name=depart
@@ -57,68 +51,32 @@ ${CLIC DANS LE VIDE}    css=.main-content-area
 ${ICON UTILISATEUR}    css=.account-loggedin
 ${ONGLET RESERVATIONS}    xpath=//a[@href='http://livraison3.testacademy.fr/index.php/reservations/']
 ${BOUTON DETAILS}    xpath=//a[contains(text(),'Détails')]
-
-# # --- ANNULATION DE RESERVATION ---
-
 ${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
 ${REASON}    id=reason
 ${raison}    Je ne suis plus intéressé par le logement.
 ${BOUTON SOUMETTRE RAISON}    id=cancelled
-
-# --- VERIFICATION DE LA RESERVATION ---
-
-# --- VERIFICATION DE LA RESERVATION ---
-
-
-# --- CONNEXION A UN COMPTE HOTE ---
-
 ${HOTE VALIDE}    MOUSSAVOU
 ${HOTE MOT DE PASSE VALIDE}    stherns
-
-# --- ACCEPTATION DE RESERVATION ---
-
 ${BOUTON CONFIRMER DETAILS}    xpath=//a[contains(text(),'Confirmer')]
 ${BOUTON CONFIRMER}    css=.confirm-offsite-reservation:nth-child(2)
-
-#--- REFUS DE RESERVATION ---
-
 # ${BOUTON REFUSER}    css=.dashboard-sidebar > #decline-reservation-btn
 ${RAISON REFUS}    id=reason22 
 ${raison refus2}    Bonjour, je ne suis plus intéressé par le logement.
 # ${BOUTON SOUMETTRE RAISON REFUS}   id=decline 
-
-# --- ANNULATION DE RESERVATION ---
-
 ${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
 ${RAISON}    id=reason
 ${raison3}    Bonjour, desole le logement est en travaux.
 ${BOUTON SOUMETTRE RAISON}    id=cancelled
-
-# --- SUPPRESSION DE RESERVATION ---
-
 ${BOUTON SUPPRIMER}    css=.reservation-delete
 ${BOUTON TRASH}    xpath=//button[contains(.,'Supprimer')]
-
-#
-
 ${BOUTON PAYER MAINTENANT}    xpath=//a[contains(text(),'Payez maintenant')]
 # ${BOUTON ANNULE DETAILS}    xpath=//a[contains(text(),'Détails')]
-
-#
 ${BOUTON MARQUE PAYE}    css=.mark-as-paid > .fa
 ${BOUTON CONFIRMER MARQUE PAYE}    xpath=//button[contains(.,'Confirmer')]
-
-#
 ${ONGLET VOYAGES}   xpath=//a[@href='http://livraison3.testacademy.fr/index.php/reservations/']
-
-
 ${DATE DEBUT VIDE}    
 ${DATE FIN VIDE}
-
-
 ${date_debut4}    2025-04-27
-
-
 
 *** Test Cases ***
 
@@ -349,7 +307,6 @@ Accéder A La Section Des Reservations
 #     Input Text    ${CHAMP DATE FIN}    ${date_fin}
 
 
-
 # Reinitialiser le Test
 
 2. Se connecter avec un compte hote valide
@@ -408,8 +365,6 @@ Mettre Dans La Corbeille La Reservation Valide
     Click Element    ${BOUTON TRASH}
 
 
-
-
 # 2. Tentative de réservation d'une période non disponible
 
 3. Accéder à la section de réservation.
@@ -421,7 +376,6 @@ Accéder A La Page De Reservation.
 
 4. Saisir une date de début déjà réservée dans le calendrier.  
     Entrer La Date de Debut..    ${DATE DEBUT VIDE}
-    # Entrer La Date de Fin    ${DATE FIN}
 
 Entrer La Date de Debut..
     [Arguments]    ${date_debut}
@@ -481,7 +435,6 @@ Entrer La Date de Fin....
     Input Text    ${CHAMP DATE FIN}    ${date_fin}
 
 7. Ajouter un message à l’attention de l’hôte.
-    # Choix De La Chambre.
     Contactez L'Hote.
     Entrer Le Nom.    ${NOM}
     Entrer L'Email.    ${EMAIL}
@@ -490,9 +443,6 @@ Entrer La Date de Fin....
     Soumettre Le Formulaire De Message.
     Fermer la fenêtre de message.
     
-# Choix De La Chambre.
-#     Click Element    ${CHOIX CHAMBRE}
-
 Contactez L'Hote.
     Click Element    ${CONTACTEZ L'HOTE}
     Wait Until Element Is Visible    ${CHAMP NOM}
