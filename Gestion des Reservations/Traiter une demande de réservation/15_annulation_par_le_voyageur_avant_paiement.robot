@@ -1,12 +1,7 @@
 *** Settings ***
 Library    SeleniumLibrary
-# Resource    commun.resource
-# Suite Setup    MOTCLE1    (Executer avant le premier cas de test la suite de test)
-# Suite Teardown    MOTCLE2    (Executer apres le dernier cas de test de la suite de test)
 
 *** Variables ***
-
-# --- EFFECTUER UNE CONNEXION REUSSIE ---
 
 ${SERVEUR}    livraison3.testacademy.fr
 ${HOMEY URL}    http://${SERVEUR}/
@@ -23,9 +18,6 @@ ${BOUTON VALIDER}    css=.homey_login_button
 ${TITRE TABLEAU DE BORD}    Tableau de bord - Livraison 3
 # ${ESPACE POUR AFFICHER LES ERREURS}    css=#modal-login .error
 # ${TITRE ACCEUIL}    Accueil - Livraison 3
-
-# --- RESERVATION D'UN LOGEMENT ---
-
 ${LIEN LOGO}    xpath=//a[contains(text(),'Accueil')]
 ${CHAMP DATE DEBUT}    name=arrive
 ${DATE DEBUT}    2025-04-27
@@ -55,36 +47,17 @@ ${CLIC DANS LE VIDE}    css=.main-content-area
 ${ICON UTILISATEUR}    css=.account-loggedin
 ${ONGLET RESERVATIONS}    xpath=//a[@href='http://livraison3.testacademy.fr/index.php/reservations/']
 ${BOUTON DETAILS}    xpath=//a[contains(text(),'Détails')]
-
-# --- VERIFICATION DE LA RESERVATION ---
-
-
-# --- CONNEXION A UN COMPTE HOTE ---
-
 ${HOTE VALIDE}    MOUSSAVOU
 ${HOTE MOT DE PASSE VALIDE}    stherns
-
-# --- ACCEPTATION DE RESERVATION ---
-
 ${BOUTON CONFIRMER DETAILS}    xpath=//a[contains(text(),'Confirmer')]
 ${BOUTON CONFIRMER}    css=.confirm-offsite-reservation:nth-child(2)
-
-# --- ANNULATION DE RESERVATION ---
-
 ${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
 ${REASON}    id=reason
 ${raison}    Je ne suis plus intéressé par le logement.
 ${BOUTON SOUMETTRE RAISON}    id=cancelled
-
-# --- SUPPRESSION DE RESERVATION ---
-
 ${BOUTON SUPPRIMER}    css=.reservation-delete
 ${BOUTON TRASH}    xpath=//button[contains(.,'Supprimer')]
-
-#
-
 ${BOUTON PAYER MAINTENANT}    xpath=//a[contains(text(),'Payez maintenant')]
-
 ${BOUTON ANNULE DETAILS}    xpath=//a[contains(text(),'Détails')]
 
 *** Test Cases ***
@@ -143,7 +116,6 @@ Reinitialiser et Supprimer la réservation valide en cours
 
 
 # Test: Demande de réservation avec des données valides
-
 
 1. Ouvrir le site web de réservation
     Ouvrir Le Navigateur Et Accéder A La Page d'Accueil
@@ -269,7 +241,6 @@ Accéder A La Section Des Reservations
 
 # Test: L’hôte accepte une demande de réservation
 
-
 2. Se connecter avec un compte hote valide
     Accéder A La Page De Connexion
     Entrer Le Nom d'Utilisateur    ${HOTE VALIDE}
@@ -330,7 +301,6 @@ Cliquer Sur Le Bouton Confirmer La Disponibilite
 
 # Test: Annulation par le voyageur avant paiement
 
-
 4. Sélectionner une réservation en attente de paiement
     Cliquer Sur Le Bouton "Payer Maintenant"
 
@@ -371,7 +341,6 @@ Soumettre La Raison D'Annulation
 
 
 # Reinitialiser le Test
-
 
 4. Sélectionner une demande en statut "ANNULE"
     Cliquer Sur Le Premier Bouton Confirmer

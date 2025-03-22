@@ -50,15 +50,18 @@ ${BOUTON DETAILS}    xpath=//a[contains(text(),'Détails')]
 ${HOTE VALIDE}    MOUSSAVOU
 ${HOTE MOT DE PASSE VALIDE}    stherns
 ${BOUTON CONFIRMER DETAILS}    xpath=//a[contains(text(),'Confirmer')]
-${BOUTON CONFIRMER}    css=.confirm-offsite-reservation:nth-child(2)
-${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
-${REASON}    id=reason
-${raison}    Je ne suis plus intéressé par le logement.
-${BOUTON SOUMETTRE RAISON}    id=cancelled
+${BOUTON REFUSER}    css=.dashboard-sidebar > #decline-reservation-btn
+${RAISON REFUS}    id=reason22 
+${raison refus2}    Bonjour cher voyageur, desole le logement est actuellement en travaux.
+${BOUTON SOUMETTRE RAISON}   id=decline 
+# ${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
+# ${RAISON}    id=reason
+# ${raison}    Bonjour, je ne suis plus intéressé par le logement.
+# ${BOUTON SOUMETTRE RAISON}    id=cancelled
 ${BOUTON SUPPRIMER}    css=.reservation-delete
-${BOUTON TRASH}    xpath=//button[contains(.,'Supprimer')]
+${BOUTON TRASH}    xpath=//div[10]/div/div/div[2]/button[2]
 ${BOUTON PAYER MAINTENANT}    xpath=//a[contains(text(),'Payez maintenant')]
-# ${BOUTON ANNULE DETAILS}    xpath=//a[contains(text(),'Détails')]
+${BOUTON ANNULE DETAILS}    xpath=//a[contains(text(),'Détails')]
 
 *** Test Cases ***
 
@@ -80,13 +83,13 @@ Demande de réservation avec des données valides
 
 # Test De Post-Condition
 
-L’hôte accepte une demande de réservation
+L’hôte refuse une demande de réservation
     1. Ouvrir le site web de réservation
     2. Se connecter avec un compte hote valide
     3. Accéder à l'onglet "Réservation"
     4. Sélectionner une demande en statut "NOUVEAU"
-    5. Accepter la demande
-    6. Confirmer l’acceptation
+    5. Refuser la demande 
+    6. Confirmer le refus
     # 7. Vérifier que le voyageur est notifié
     Close Browser
 
@@ -229,7 +232,7 @@ Accéder A La Section Des Reservations
 #     Vérifier Que Le Voyageur Recoit Une Confirmation De Sa Demande
 
 
-# Test: L’hôte accepte une demande de réservation
+# Test: L’hôte refuse une demande de réservation
 
 2. Se connecter avec un compte hote valide
     Accéder A La Page De Connexion
@@ -268,24 +271,37 @@ Accéder A La Rubrique "Reservations"
     Click Element    ${ONGLET RESERVATIONS}
 
 4. Sélectionner une demande en statut "NOUVEAU"
-    Wait Until Element Is Visible    ${BOUTON CONFIRMER DETAILS}
-
-5. Accepter la demande
     Cliquer Sur Le Premier Bouton Confirmer
 
 Cliquer Sur Le Premier Bouton Confirmer
     Wait Until Element Is Visible    ${BOUTON CONFIRMER DETAILS}
     Click Element    ${BOUTON CONFIRMER DETAILS}
+    
+5. Refuser la demande
+    Cliquer Sur Le Bouton Refuser
 
-6. Confirmer l’acceptation
-    Cliquer Sur Le Bouton Confirmer La Disponibilite
+Cliquer Sur Le Bouton Refuser
+    Click Element    ${BOUTON REFUSER}
+    Wait Until Element Is Visible    ${RAISON REFUS}
 
-Cliquer Sur Le Bouton Confirmer La Disponibilite
-    Wait Until Element Is Visible    ${BOUTON CONFIRMER}
-    Click Element    ${BOUTON CONFIRMER}
-    Reload Page
+6. Confirmer le refus
+    Cliquer Sur Le Bouton De Raison
+    Entrer La Raison Du Refus    ${raison refus2}
+    Soumettre La Raison Du Refus
+
+Cliquer Sur Le Bouton De Raison
+    Click Element    ${RAISON REFUS}
+
+Entrer La Raison Du Refus
+    [Arguments]    ${raison refus2}
+    Click Element    ${RAISON REFUS}
+    Input Text    ${RAISON REFUS}    ${raison refus2}
+
+Soumettre La Raison Du Refus
+    Click Button    ${BOUTON SOUMETTRE RAISON}
 
 7. Vérifier que le voyageur est notifié
+    Reload Page
     Wait Until Element Is Visible    ${BOUTON RESERVATION}
 
 
