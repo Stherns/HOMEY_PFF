@@ -1,82 +1,8 @@
 *** Settings ***
 Library    SeleniumLibrary
-# Resource    commun.resource
+Resource    commun_a.resource
 # Suite Setup    MOTCLE1    (Executer avant le premier cas de test la suite de test)
 # Suite Teardown    MOTCLE2    (Executer apres le dernier cas de test de la suite de test)
-
-*** Variables ***
-
-${SERVEUR}    livraison3.testacademy.fr
-${HOMEY URL}    http://${SERVEUR}/
-${NAVIGATEUR}    Chrome
-${LIEN SE CONNECTER}    xpath=//a[contains(text(),'Se connecter')]
-${LIEN SE DECONNECTER}    xpath=(//a[contains(text(),'Se déconnecter')])[3]
-${UTILISATEUR VALIDE}    stherns
-# ${UTILISATEUR NON VALIDE}    nonvalide
-${MOT DE PASSE VALIDE}    stherns
-# ${MOT DE PASSE NON VALIDE}    nonvalide
-${CHAMP NOM UTILISATEUR}    name=username
-${CHAMP MOT DE PASSE}    name=password
-${BOUTON VALIDER}    css=.homey_login_button
-${TITRE TABLEAU DE BORD}    Tableau de bord - Livraison 3
-# ${ESPACE POUR AFFICHER LES ERREURS}    css=#modal-login .error
-# ${TITRE ACCEUIL}    Accueil - Livraison 3
-${LIEN LOGO}    xpath=//a[contains(text(),'Accueil')]
-${CHAMP DATE DEBUT}    name=arrive
-${DATE DEBUT}    2025-04-27
-${CHAMP DATE FIN}    name=depart
-${DATE FIN}    2025-04-30
-${DATE FIN2}    2025-04-30
-${CHAMP NOMBRE VOYAGEURS}    xpath=//div[3]/input
-${NOMBRE VOYAGEURS}   
-${VOYAGEUR ADULTES}    css=.banner-caption .search_adult_plus > .fa
-${VOYAGEURS ENFANTS}    css=.banner-caption .search_child_plus > .fa
-${ANIMAUX DOMESTIQUES}    css=.banner-caption .control:nth-child(1) > .radio-tab-inner
-${BOUTON VALIDER VOYAGEURS}    css=.banner-caption .guest-apply-btn > .btn
-${BOUTON CHERCHER}    css=.search-button > .btn-primary:nth-child(1)
-${CHOIX CHAMBRE}    xpath=//div[@id='homey_halfmap_listings_container']/div/div/div/div/a
-${CONTACTEZ L'HOTE}    css=.btn-full-width:nth-child(2)
-${CHAMP NOM}    name=name
-${NOM}    Djhery MOUSSAVOU
-${CHAMP EMAIL}    name=email
-${EMAIL}    stherns@yahoo.fr
-${CHAMP TELEPHONE}    name=phone
-${TELEPHONE}    0758978822
-${CHAMP MESSAGE}    name=message
-${MESSAGE}    Bonjour, je suis intéressé par votre logement.
-${BOUTON VALIDER MESSAGE}    xpath=//button[@type='submit']
-${ONGLET FERMER}    xpath=//div[2]/div/div/div/div/button/span
-${BOUTON RESERVATION}    xpath=//div[2]/div/button
-${CLIC DANS LE VIDE}    css=.main-content-area
-${ICON UTILISATEUR}    css=.account-loggedin
-${ONGLET RESERVATIONS}    xpath=//a[@href='http://livraison3.testacademy.fr/index.php/reservations/']
-${BOUTON DETAILS}    xpath=//a[contains(text(),'Détails')]
-${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
-${REASON}    id=reason
-${raison}    Je ne suis plus intéressé par le logement.
-${BOUTON SOUMETTRE RAISON}    id=cancelled
-${HOTE VALIDE}    MOUSSAVOU
-${HOTE MOT DE PASSE VALIDE}    stherns
-${BOUTON CONFIRMER DETAILS}    xpath=//a[contains(text(),'Confirmer')]
-${BOUTON CONFIRMER}    css=.confirm-offsite-reservation:nth-child(2)
-# ${BOUTON REFUSER}    css=.dashboard-sidebar > #decline-reservation-btn
-${RAISON REFUS}    id=reason22 
-${raison refus2}    Bonjour, je ne suis plus intéressé par le logement.
-# ${BOUTON SOUMETTRE RAISON REFUS}   id=decline 
-${BOUTON ANNULER}    css=.dashboard-sidebar > #cancel-reservation-btn
-${RAISON}    id=reason
-${raison3}    Bonjour, desole le logement est en travaux.
-${BOUTON SOUMETTRE RAISON}    id=cancelled
-${BOUTON SUPPRIMER}    css=.reservation-delete
-${BOUTON TRASH}    xpath=//button[contains(.,'Supprimer')]
-${BOUTON PAYER MAINTENANT}    xpath=//a[contains(text(),'Payez maintenant')]
-# ${BOUTON ANNULE DETAILS}    xpath=//a[contains(text(),'Détails')]
-${BOUTON MARQUE PAYE}    css=.mark-as-paid > .fa
-${BOUTON CONFIRMER MARQUE PAYE}    xpath=//button[contains(.,'Confirmer')]
-${ONGLET VOYAGES}   xpath=//a[@href='http://livraison3.testacademy.fr/index.php/reservations/']
-${DATE DEBUT VIDE}    
-${DATE FIN VIDE}
-${date_debut4}    2025-04-27
 
 *** Test Cases ***
 
